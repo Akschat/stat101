@@ -1,73 +1,69 @@
-# stat101
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
 #include <stdlib.h>
 
-float mean(float list[],int n)
+
+void mean(float list[],int n)
 {
     int i;
-    float sum,avg;
-    for(i=0;i<=n-1;i++)
+    float sum=0,avg=0;
+    for(i=0;i<n;i++)
     {
         sum=sum+list[i];
         
     }
     avg=sum/n;
-    printf("%f",avg);
-    return 0.0;
+    printf("%5.1f",avg);
+    
 }
-float median(float list[],int n)
+void median(float list[],int n)
 {
     int j,i,mid,p,q;
     float temp,med;
-    for(j=0;j<=n-1;j++)
+    for(j=0;j<n-1;j++)
     {     
-    for(i=0;i<n;i++)
+    for(i=j+1;i<n;i++)
     {
-        if(list[i]>=list[i+1])
+        if(list[i]<list[j])
         { 
-            temp=list[i];
-            list[i]=list[i+1];
-            list[i+1]=temp;
+            temp=list[j];
+            list[j]=list[i];
+            list[i]=temp;
         }
     }
     }
     if(n%2!=0)
     {    
-    mid = (n-1)/2;
-    printf("%f",list[mid]);
+    printf("\n%5.1f",list[n/2]);
     }
     else
     {
-        mid=n/2;
-        p=mid-1;
-        q=mid;
-        med=(list[p]+list[q])/2;
-        printf("%f",med);
+        med=(list[n/2]+list[(n/2)-1])/2.0;
+        printf("\n%5.1f",med);
     }    
     
-    return 0.0;
+    
 }
-float mode(float list[],int n)
+void mode(float list[],int n)
 {
     int modal,j,i,old_count=0,new_count=0;
     float temp;
-    for(j=0;j<=n-1;j++)
+    for(j=0;j<n-1;j++)
     {     
-    for(i=0;i<=n-1;i++)
+    for(i=j+1;i<n;i++)
     {
-        if(list[i]>=list[i+1])
+        if(list[i]<list[j])
         { 
-            temp=list[i];
-            list[i]=list[i+1];
-            list[i+1]=temp;
+            temp=list[j];
+            list[j]=list[i];
+            list[i]=temp;
         }
     }
     }
-    for(j=0;j<=n-1;j++)
+    for(j=0;j<n;j++)
     {    
-    for(i=j;i<=n-1;i++)
+    for(i=j;i<n-1;i++)
     {
         if(list[i]==list[i+1])
             new_count++;
@@ -79,22 +75,22 @@ float mode(float list[],int n)
         modal=j;
     }
     }
-    printf("%f",list[modal]);
-    return 0.0;
+    printf("\n%f",list[modal]);
+    
 }
 
 int main() {
 
     int n,i;
     float arr[20];
-    printf("enter the size of array");
-    scanf("%d",n);
+    scanf("%d",&n);
     for(i=0;i<n;i++)
     {
-        scanf("%f",arr[i]);
+        scanf("%f",&arr[i]);
     }
     mean(arr,n);
     median(arr,n);
     mode(arr,n);
     return 0;
+   
 }
